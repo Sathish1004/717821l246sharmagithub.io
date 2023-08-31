@@ -1,0 +1,98 @@
+INDEX.HTML [717821L246-SATHISH SHARMA]
+
+    function Book(title, author, yearPublished, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.yearPublished = yearPublished;
+    this.readStatus=readStatus;
+}
+
+Book.prototype.getSummary = function() {
+    return `${this.title} by ${this.author}, published in ${this.yearPublished}. Read: ${this.readStatus}`;
+};
+
+Book.prototype.toggleReadStatus = function() {
+    this.readStatus = !this.readStatus;
+};
+
+const library = [];
+
+function addBook(book) {
+    library.push(book);
+}
+
+function removeLastBook() {
+    library.pop();
+}
+
+function addBookToFront(book) {
+    library.unshift(book);
+}
+
+function removeFirstBook() {
+    library.shift();
+}
+
+function getAllTitles() {
+    return library.map(book => book.title);
+}
+
+function getBooksByAuthor(author) {
+    return library.filter(book => book.author === author);
+}
+
+function getTotalBooksPublishedBefore(year) {
+    return library.filter(book => book.yearPublished < year).length;
+}
+
+function removeBookByTitle(title) {
+    const index = library.findIndex(book => book.title === title);
+    if (index !== -1) {
+        library.splice(index, 1);
+    }
+}
+
+function getBooksByReadStatus(status) {
+    return library.filter(book => book.readStatus === status);
+}
+
+function getSubLibrary(start, end) {
+    return library.slice(start, end);
+}
+
+const book1=new Book('Time Machine','H.G.Wells',2000,true);
+const book2=new Book('The Moon and Sixpense','Somerset Maughan',1987,false);
+const book3=new Book('Divine comedy','Dante',1976,true);
+const book4=new Book('Alice in Wonderland','Lewis carrol',2003,true);
+const book5=new Book('pride and prejudice','Ravi kumar',1985,false);
+const book6=new Book('A Dangerous place','D.P.Moynihan',1932,false);
+const book7=new Book('far from the madding crowd','Thomson Hardy',2001,false);
+
+addBook(book1);
+addBook(book2);
+addBook(book3);
+addBook(book4);
+addBookToFront(book5);
+addBookToFront(book6);
+addBookToFront(book7);
+
+console.log(library);
+
+book2.toggleReadStatus();
+book5.toggleReadStatus();
+for(let i=0;i<library.length;i++){
+    console.log(library[i].getSummary()+"\n");
+}
+
+console.log(getAllTitles());
+
+console.log(getBooksByAuthor('far from the madding crowd'));
+
+console.log(getTotalBooksPublishedBefore(2024));
+
+removeBookByTitle('Divine comedy');
+
+console.log(library);
+
+const subLibrary = getSubLibrary(0, 2);
+console.log(subLibrary);
